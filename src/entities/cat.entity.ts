@@ -14,3 +14,21 @@ export class CatEntity {
     // @Column( { nullable: false, type: "timestamptz", default: new Date() } )
     // date: Date;
 }
+
+export class CatClass {
+    name: string;
+    description: string;
+
+    constructor( name: string, description: string ) {
+
+        this.name = name;
+        this.description = description;
+
+    }
+
+    public prettyString(): string {
+
+        return "Name: " + this.name + ", description: " + this.description;
+
+    }
+}

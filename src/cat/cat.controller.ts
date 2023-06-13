@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Body, Header, Response } from '@nestjs/common';
+import { Controller, Get, Param, Body, Header, Response, Post } from '@nestjs/common';
 import { CatService } from './cat.service';
 
 @Controller('/cat')
@@ -10,18 +10,22 @@ export class CatController {
 
     @Get("/new")
     async newCatTest() {
-        const result = await this.catService.newCat("joe biden", "derp: f" + Math.random());
+        const result = await this.catService.newCat("joe biden", "willlll     " + Math.random());
         return result;
     }
 
+    @Post("/new")
+    async newCat() {
+        // tODO: fill in
+    }
+
     @Get("all")
-    @Header("gamer moment", "epic")
+    @Header("Gamer-Moment", "epic")
     async getAllCats() {
 
         const cats = await this.catService.getAllCats();
-        
 
-        return cats.join(",<br>");
+        return cats.map( ( cat ) => cat.prettyString() ).join(",<br>");
 
     }
 

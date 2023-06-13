@@ -6,9 +6,14 @@ import { CatEntity } from './entities/cat.entity';
 import { CatModule } from './cat/cat.module';
 import { CatService } from './cat/cat.service';
 import { CatController } from './cat/cat.controller';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from "path";
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot( {
+      rootPath: join(__dirname, "..", "static"),
+    } ),
     TypeOrmModule.forRoot( {
       type: 'sqlite',
       database: './amogus.db',

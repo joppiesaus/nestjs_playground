@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CatEntity } from 'src/entities/cat.entity';
+import { CatClass, CatEntity } from 'src/entities/cat.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -8,7 +8,9 @@ export class CatService {
     
     constructor(
         @InjectRepository( CatEntity ) private catRepo: Repository< CatEntity > 
-    ) {}
+    ) {
+
+    }
 
     private prettyString( cat: CatEntity ) {
 
@@ -19,6 +21,22 @@ export class CatService {
         return "Name: " + cat.name + ", description: " + cat.description;
 
     }
+
+    private prettyObject( cat: CatEntity ): CatClass {
+
+        if (!cat) {
+            return null;
+        }
+
+        let object = { 
+            name: "derp",
+            number: 6,
+        };
+
+        return new CatClass( cat.name, cat.description );
+
+    }
+
 
     async newCat( name: string, description: string ) {
 
@@ -31,17 +49,17 @@ export class CatService {
 
     }
 
-    async getCat( id: number ): Promise<String> {
+    async getCat( id: number ): Promise<CatClass> {
 
         const cat = await this.catRepo.findOneBy( { id } );
-        return this.prettyString( cat );
+        return this.prettyObject( cat );
 
     }
 
-    async getAllCats(): Promise<Array<String>> {
+    async getAllCats(): Promise<Array<CatClass>> {
 
         const cats = await this.catRepo.find();
-        return cats.map( (cat) => this.prettyString( cat ) );
+        return cats.map( (cat) => this.prettyObject( cat ) );
 
     }
 
