@@ -4,34 +4,38 @@
 <head>
     <title>le epic CATs</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
-    <h1>Welcome, to the cat webpage.</h1>
+    <div class="wrap">
+        <h1>Welcome, to the cat webpage.</h1>
 
-    <div id="catList">
+        <div id="catList">
+        </div>
+
+
+        <div>
+            <h2>Create a new cat!</h2>
+            <form action="/cat/new" method="post">
+
+                <label for="name">Name of ur cat:</label>
+                <input type="text" name="name">
+
+                <br><br>
+
+                <label for="description">Description UwU:</label>
+                <input type="text" name="description">
+
+                <br><br>
+
+                <input type="submit" value="CREATE DA NEW CAT! >:3">
+            </form>
+        </div>
+
     </div>
 
 
-    <div>
-        <h2>Create a new cat!</h2>
-        <form action="/cat/new" method="post">
-
-            <label for="name">Name of ur cat:</label>
-            <input type="text" name="name">
-
-            <br><br>
-
-            <label for="description">Description UwU:</label>
-            <input type="text" name="description">
-
-            <br><br>
-
-            <input type="submit" value="CREATE DA NEW CAT! >:3">
-        </form>
-    </div>
-
-
-    <script src="cats.js"></script>
+    <script src="cats.js" async></script>
 </body>
 </html>

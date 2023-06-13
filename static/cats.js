@@ -13,11 +13,35 @@ var getJSON = function( url, callback, errorCallback ) {
         }
     };
 
-    x.open("GET", url, true);
+    x.open( "GET", url, true );
     x.send();
 
 };
 
+var deleteCat = function() {
+
+    var x = new XMLHttpRequest();
+
+    x.onreadystatechange = function() {
+
+        // TODO: fix
+        console.log(this.readyState);
+        console.log( this );
+
+        if ( this.readyState == 4 ) {
+
+            if ( this.status === 200 ) {
+                getCats();
+            } else {
+                alert("ERROR!"); // trollface
+            }
+        }
+    };
+
+    x.open( "DELETE", "cat/" + this.dataset.id, true );
+    x.send();
+
+};
 
 var getCats = function() {
 
@@ -34,14 +58,28 @@ var getCats = function() {
 
         for ( var i = 0; i < obj.length; i++ ) {
 
-
-            // TODO: make pretty and and delete
             var cat = obj[ i ];
 
             var entryEl = document.createElement( "div" );
             entryEl.className = "entry";
 
-            entryEl.textContent = cat.name + "    " + cat.description;
+            var nameEl = document.createElement( "span" );
+            nameEl.className = "name";
+            nameEl.textContent = cat.name;
+            entryEl.appendChild( nameEl );
+
+            var descriptionEl = document.createElement( "span" );
+            descriptionEl.className = "description";
+            descriptionEl.textContent = cat.description;
+            entryEl.appendChild( descriptionEl );
+
+            var deleteEl = document.createElement( "input" );
+            deleteEl.className = "deleteButton";
+            deleteEl.type = "submit";
+            deleteEl.value = "Delete Cat :(";
+            deleteEl.dataset.id = cat.id;
+            deleteEl.onclick = deleteCat;
+            entryEl.appendChild( deleteEl );
 
             catListEl.appendChild( entryEl );
 

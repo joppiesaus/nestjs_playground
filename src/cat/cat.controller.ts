@@ -1,6 +1,7 @@
-import { Controller, Get, Param, Body, Header, Response, Post } from '@nestjs/common';
+import { Controller, Get, Param, Body, Header, Res, Post, Delete, HttpStatus } from '@nestjs/common';
 import { CatService } from './cat.service';
 import { CatDTO } from 'src/entities/cat.entity';
+import { Response } from 'express';
 
 @Controller('/cat')
 export class CatController {
@@ -52,6 +53,27 @@ export class CatController {
 
         return message;
 
+    }
+
+    @Delete(":id")
+    async deleteCatById( @Body() Body, @Param("id") id, @Res() response: Response ) {
+
+        const idNum = parseInt( id );
+
+        if (Number.isNaN(idNum)) {
+            return response.status(HttpStatus.BAD_REQUEST);
+        }
+
+        const didDelete = await this.catService.deleteCat( id );
+        if ( didDelete ) {
+
+            return response.status(HttpStatus.OK);
+
+        } else {
+
+            return response.status(HttpStatus.BAD_REQUEST);
+
+        }
     }
 
     

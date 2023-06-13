@@ -37,7 +37,7 @@ export class CatService {
 
         let cat = new CatEntity();
         cat.name = name;
-        cat.description = description;``
+        cat.description = description;
 
         const result = await this.catRepo.insert( cat );
         return { result };
@@ -48,6 +48,13 @@ export class CatService {
 
         const cat = await this.catRepo.findOneBy( { id } );
         return this.prettyObject( cat );
+
+    }
+
+    async deleteCat( id: number ): Promise<boolean> {
+
+        const cat = await this.catRepo.delete( { id: id } );
+        return cat.affected == 1;
 
     }
 
