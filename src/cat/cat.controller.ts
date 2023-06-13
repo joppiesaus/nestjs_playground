@@ -1,5 +1,6 @@
 import { Controller, Get, Param, Body, Header, Response, Post } from '@nestjs/common';
 import { CatService } from './cat.service';
+import { CatDTO } from 'src/entities/cat.entity';
 
 @Controller('/cat')
 export class CatController {
@@ -15,8 +16,9 @@ export class CatController {
     }
 
     @Post("/new")
-    async newCat() {
-        // tODO: fill in
+    async newCat( @Body() cat_body: CatDTO ) {
+        const result = await this.catService.newCat( cat_body.name, cat_body.description );
+        return result;
     }
 
     @Get("all")
@@ -29,7 +31,13 @@ export class CatController {
 
     }
 
+    @Get("all.json")
+    async getAllCatsJson() {
 
+        return await this.catService.getAllCats();
+
+    }
+    
     // TODO: RESPONSE CODe when it fails
     @Get(":id")
     async getCatById( @Body() body, @Param("id") id ) {
