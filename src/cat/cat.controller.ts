@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Body, Header, Res, Post, Delete, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Param, Body, Header, Res, Post, Delete, HttpStatus, Redirect } from '@nestjs/common';
 import { CatService } from './cat.service';
 import { CatDTO } from '../entities/cat.entity';
 import { Response } from 'express';
@@ -11,6 +11,7 @@ export class CatController {
     }
 
     @Post("/new")
+    @Redirect("/")
     async newCat( @Body() cat_body: CatDTO ) {
         const result = await this.catService.newCat( cat_body.name, cat_body.description );
         return result;

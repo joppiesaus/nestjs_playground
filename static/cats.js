@@ -52,6 +52,16 @@ var getCats = function() {
 
         console.log( obj );
 
+        var amountEl = document.createElement( "p" );
+        if ( obj.length === 0 ) {
+            amountEl.textContent = "There are no cats yet :( Maybe... create a new one??? XDD";
+        } else if ( obj.length === 1) {
+            amountEl.textContent = "There is one cat:";
+        } else {
+            amountEl.textContent = "There are " + obj.length + " cats:";
+        }
+        catListEl.appendChild( amountEl );
+
         for ( var i = 0; i < obj.length; i++ ) {
 
             var cat = obj[ i ];
