@@ -45,7 +45,7 @@ export class CatController {
 
         const idNum = parseInt( id );
 
-        if (Number.isNaN(idNum)) {
+        if ( Number.isNaN( idNum ) ) {
             return "THAT'S NOT AN VALID CAT!!";
         }
 
@@ -60,18 +60,18 @@ export class CatController {
 
         const idNum = parseInt( id );
 
-        if (Number.isNaN(idNum)) {
-            return response.status(HttpStatus.BAD_REQUEST);
+        if ( Number.isNaN( idNum ) ) {
+            return response.status( HttpStatus.BAD_REQUEST );
         }
 
         const didDelete = await this.catService.deleteCat( id );
         if ( didDelete ) {
 
-            return response.status(HttpStatus.OK);
+            return response.status( HttpStatus.OK ).send( "Deletion of cat succesful\n" );
 
         } else {
 
-            return response.status(HttpStatus.BAD_REQUEST);
+            return response.status( HttpStatus.NOT_FOUND ).send( "Deletion failed, cat not found\n" );
 
         }
     }

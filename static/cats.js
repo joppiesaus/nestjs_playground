@@ -24,16 +24,12 @@ var deleteCat = function() {
 
     x.onreadystatechange = function() {
 
-        // TODO: fix
-        console.log(this.readyState);
-        console.log( this );
-
         if ( this.readyState == 4 ) {
 
             if ( this.status === 200 ) {
                 getCats();
             } else {
-                alert("ERROR!"); // trollface
+                alert( "Error deleting cat: " + this.responseText ); // trollface
             }
         }
     };
