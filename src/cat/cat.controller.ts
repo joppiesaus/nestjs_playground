@@ -10,12 +10,6 @@ export class CatController {
 
     }
 
-    @Get("/new")
-    async newCatTest() {
-        const result = await this.catService.newCat("joe biden", "willlll     " + Math.random());
-        return result;
-    }
-
     @Post("/new")
     async newCat( @Body() cat_body: CatDTO ) {
         const result = await this.catService.newCat( cat_body.name, cat_body.description );
