@@ -1,12 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CatController } from './cat.controller';
+import { CatService } from './cat.service';
+import { SQLiteTestingModule } from '../test-utils/SQLiteTestingModule';
 
 describe('CatController', () => {
   let controller: CatController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [ ...SQLiteTestingModule() ],
       controllers: [CatController],
+      providers: [CatService]
     }).compile();
 
     controller = module.get<CatController>(CatController);
