@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CatService } from './cat.service';
-import { SQLiteTestingModule } from '../test-utils/SQLiteTestingModule';
+import { SQLiteTestingModule, feedTestDatabase } from '../test-utils/SQLiteTestingModule';
 
 describe('CatService', () => {
   let service: CatService;
@@ -13,17 +13,16 @@ describe('CatService', () => {
 
     service = module.get<CatService>(CatService);
   
-
-    await service.newCat( "pukkie", "a very friendly cat" );
+    feedTestDatabase( service );
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  it( "should create cat pukkie", async () => {
+  it( "should create cat jeff", async () => {
 
-    const result = await service.newCat( "pukkie", "a very friendly cat" );
+    const result = await service.newCat( "jeff", "a mean cat" );
     expect( result ).toBeDefined();
 
   } );
@@ -33,6 +32,7 @@ describe('CatService', () => {
     const cat = await service.getCat( 1 );
     expect( cat.name ).toBe( "pukkie" );
     expect( cat.id ).toBe( 1 );
+    expect( cat.description ).toBe( "a very friendly cat" );
 
   });
 });
